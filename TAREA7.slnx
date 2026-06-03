@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="TAREA7.vcxproj" />
+  <Project Path="TAREA7.vcxproj" Id="e75d9d10-11bb-4452-ae87-ff6d4341394c" />
 </Solution>

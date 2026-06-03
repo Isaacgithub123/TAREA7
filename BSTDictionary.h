@@ -1,26 +1,31 @@
 #pragma once
 #include "Pair.h"
 #include "LinkedList.h"
+#include "Dictionary.h"
+#include <stdexcept>
+#include <iostream>
+
+using namespace std;
 
 template<typename K, typename V>
 class BSTDictionary : public Dictionary<K, V> {
 private:
-    class BSTNode {
+    class Node {
     public:
         Pair<K, V> element;
-        BSTNode* left;
-        BSTNode* right;
+        Node* left;
+        Node* right;
 
-        BSTNode(Pair<K, V> elem) : element(elem), left(nullptr), right(nullptr) {}
+        Node(Pair<K, V> elem) : element(elem), left(nullptr), right(nullptr) {}
     };
 
-    BSTNode* root;
+    Node* root;
     int count;
 
-    BSTNode* insertAux(BSTNode* current, Pair<K, V> element) {
+    Node* insertAux(Node* current, Pair<K, V> element) {
         if (current == nullptr) {
             count++;
-            return new BSTNode(element);
+            return new Node(element);
         }
         if (element.key == current->element.key)
             throw runtime_error("DUPLICATED KEY");
@@ -31,13 +36,13 @@ private:
         return current;
     }
 
-    BSTNode* findMin(BSTNode* node) {
+    Node* findMin(Node* node) {
         while (node->left != nullptr)
             node = node->left;
         return node;
     }
 
-    BSTNode* removeAux(BSTNode* current, K key, V& removedValue) {
+    Node* removeAux(Node* current, K key, V& removedValue) {
         if (current == nullptr)
             throw runtime_error("KEY NOT FOUND");
         if (key < current->element.key)
@@ -52,19 +57,19 @@ private:
                 return nullptr;
             }
             else if (current->left == nullptr) {
-                BSTNode* temp = current->right;
+                Node* temp = current->right;
                 delete current;
                 count--;
                 return temp;
             }
             else if (current->right == nullptr) {
-                BSTNode* temp = current->left;
+                Node* temp = current->left;
                 delete current;
                 count--;
                 return temp;
             }
             else {
-                BSTNode* minNode = findMin(current->right);
+                Node* minNode = findMin(current->right);
                 current->element = minNode->element;
                 current->right = removeAux(current->right, minNode->element.key, removedValue);
             }
@@ -72,7 +77,7 @@ private:
         return current;
     }
 
-    Pair<K, V>* findNode(BSTNode* current, K key) {
+    Pair<K, V>* findNode(Node* current, K key) {
         if (current == nullptr)
             return nullptr;
         if (key == current->element.key)
@@ -83,7 +88,7 @@ private:
             return findNode(current->right, key);
     }
 
-    void clearAux(BSTNode* current) {
+    void clearAux(Node* current) {
         if (current != nullptr) {
             clearAux(current->left);
             clearAux(current->right);
@@ -91,7 +96,7 @@ private:
         }
     }
 
-    void getKeysAux(BSTNode* current, List<K>* list) {
+    void getKeysAux(Node* current, List<K>* list) {
         if (current != nullptr) {
             getKeysAux(current->left, list);
             list->append(current->element.key);
@@ -99,19 +104,11 @@ private:
         }
     }
 
-    void getValuesAux(BSTNode* current, List<V>* list) {
+    void getValuesAux(Node* current, List<V>* list) {
         if (current != nullptr) {
             getValuesAux(current->left, list);
             list->append(current->element.value);
             getValuesAux(current->right, list);
-        }
-    }
-
-    void printAux(BSTNode* current, List<Pair<K, V>>* list) {
-        if (current != nullptr) {
-            printAux(current->left, list);
-            list->append(current->element);
-            printAux(current->right, list);
         }
     }
 
@@ -180,7 +177,7 @@ public:
     void print() {
         cout << "{ ";
         List<Pair<K, V>>* allPairs = new LinkedList<Pair<K, V>>();
-        printAux(root, allPairs);
+        getPairsAux(root, allPairs);
         for (allPairs->goToStart(); !allPairs->atEnd(); allPairs->next()) {
             Pair<K, V> p = allPairs->getElement();
             cout << p.key << " : " << p.value;
@@ -221,6 +218,15 @@ public:
                 insert(key, value);
             keys->next();
             values->next();
+        }
+    }
+
+private:
+    void getPairsAux(Node* current, List<Pair<K, V>>* list) {
+        if (current != nullptr) {
+            getPairsAux(current->left, list);
+            list->append(current->element);
+            getPairsAux(current->right, list);
         }
     }
 };
