@@ -1,28 +1,34 @@
-#include <iostream>
+include <iostream>
 #include <string>
-#include "BSTDictionary.h"  
+#include "BSTDictionary.h"
+#include "LinkedList.h"
 using namespace std;
 
-int main() {
-    BSTDictionary<int, string> diccionario1;
-    BSTDictionary<int, string> diccionario2;
+void mostrarMenu() {
+    cout << "\n========== MENU ==========" << endl;
+    cout << "1. Insert" << endl;
+    cout << "2. Remove" << endl;
+    cout << "3. GetValue" << endl;
+    cout << "4. SetValue" << endl;
+    cout << "5. Contains" << endl;
+    cout << "6. Clear" << endl;
+    cout << "7. GetKeys" << endl;
+    cout << "8. GetValues" << endl;
+    cout << "9. Update" << endl;
+    cout << "10. Zip" << endl;
+    cout << "11. Salir" << endl;
+    cout << "=========================" << endl;
+}
 
-    diccionario1.insert(10, "Diez");
-    diccionario1.insert(20, "Veinte");
-    diccionario1.insert(5, "Cinco");
-
-
-    diccionario2.insert(1, "Uno");
-    diccionario2.insert(2, "Dos");
-    diccionario2.insert(3, "Tres");
-
-    cout << "Diccionario 1: ";
-    diccionario1.print();
+void mostrarDiccionarios(BSTDictionary<int, string>& d1, BSTDictionary<int, string>& d2) {
+    cout << "\n--- DICCIONARIO 1 ---" << endl;
+    cout << "Tamano: " << d1.getSize() << " | Contenido: ";
+    d1.print();
     cout << endl;
 
-    cout << "Diccionario 2: ";
-    diccionario2.print();
+    cout << "--- DICCIONARIO 2 ---" << endl;
+    cout << "Tamano: " << d2.getSize() << " | Contenido: ";
+    d2.print();
     cout << endl;
-
-    return 0;
+}
 }
