@@ -53,5 +53,39 @@ int main() {
             catch (runtime_error& e) {
                 cout << "Error: " << e.what() << endl;
             }
+        }
+        else if (opcion == 2) {
+            cout << "Llave: "; cin >> key;
+            try {
+                if (dict == 1) value = d1.remove(key);
+                else value = d2.remove(key);
+                cout << "Eliminado: " << value << endl;
+            }
+            catch (runtime_error& e) {
+                cout << "Error: " << e.what() << endl;
+            }
+        }
+        else if (opcion == 3) {
+            cout << "Llave: "; cin >> key;
+            try {
+                if (dict == 1) cout << d1.getValue(key) << endl;
+                else cout << d2.getValue(key) << endl;
+            }
+            catch (runtime_error& e) {
+                cout << "Error: " << e.what() << endl;
+            }
+        }
+        else if (opcion == 4) {
+            cout << "Llave: "; cin >> key;
+            cout << "Nuevo valor: "; cin >> value;
+            try {
+                if (dict == 1) d1.setValue(key, value);
+                else d2.setValue(key, value);
+                cout << "Actualizado" << endl;
+            }
+            catch (runtime_error& e) {
+                cout << "Error: " << e.what() << endl;
+            }
+        }
         
 }
