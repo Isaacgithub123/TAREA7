@@ -127,5 +127,53 @@ int main() {
             cout << "]" << endl;
             delete values;
         }
-        
+        else if (opcion == 9) {
+            int op;
+            cout << "1. Actualizar D1 con D2" << endl;
+            cout << "2. Actualizar D2 con D1" << endl;
+            cout << "Opcion: ";
+            cin >> op;
+            try {
+                if (op == 1) d1.update(&d2);
+                else if (op == 2) d2.update(&d1);
+                cout << "Actualizado" << endl;
+            }
+            catch (runtime_error& e) {
+                cout << "Error: " << e.what() << endl;
+            }
+        }
+        else if (opcion == 10) {
+            cout << "Cantidad: "; cin >> cantidad;
+            if (cantidad > 0) {
+                List<int>* keys = new LinkedList<int>();
+                List<string>* values = new LinkedList<string>();
+
+                cout << "Llaves:" << endl;
+                for (int i = 0; i < cantidad; i++) {
+                    cin >> key;
+                    keys->append(key);
+                }
+                cout << "Valores:" << endl;
+                for (int i = 0; i < cantidad; i++) {
+                    cin >> value;
+                    values->append(value);
+                }
+                try {
+                    if (dict == 1) d1.zip(keys, values);
+                    else d2.zip(keys, values);
+                    cout << "Zip completado" << endl;
+                }
+                catch (runtime_error& e) {
+                    cout << "Error: " << e.what() << endl;
+                }
+                delete keys;
+                delete values;
+            }
+        }
+        else if (opcion != 0) {
+            cout << "Opcion invalida" << endl;
+        }
+    }
+
+    return 0;
 }
