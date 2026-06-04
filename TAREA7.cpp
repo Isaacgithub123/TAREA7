@@ -114,5 +114,18 @@ int main() {
             cout << "]" << endl;
             delete keys;
         }
+        else if (opcion == 8) {
+            List<string>* values;
+            if (dict == 1) values = d1.getValues();
+            else values = d2.getValues();
+
+            cout << "[";
+            for (values->goToStart(); !values->atEnd(); values->next()) {
+                cout << values->getElement();
+                if (values->getPos() < values->getSize() - 1) cout << ", ";
+            }
+            cout << "]" << endl;
+            delete values;
+        }
         
 }
