@@ -45,4 +45,22 @@ int main() {
         cout << "Seleccione una opcion: ";
         cin >> opcion;
     }
-}
+    if (opcion == 1) {
+    int key;
+    string value;
+
+    cout << "Seleccione diccionario (1 o 2): ";
+    cin >> dictSeleccionado;
+    cout << "Ingrese la llave (entero): ";
+    cin >> key;
+    cout << "Ingrese el valor (string): ";
+    cin >> value;
+
+    if (dictSeleccionado == 1) {
+        try {
+            diccionario1.insert(key, value);
+            cout << "Insertado correctamente." << endl;
+        }
+        catch (runtime_error& e) {
+            cout << "No se puede realizar esta operacion." << endl;
+        }
