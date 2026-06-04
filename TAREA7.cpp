@@ -87,5 +87,32 @@ int main() {
                 cout << "Error: " << e.what() << endl;
             }
         }
+        else if (opcion == 5) {
+            cout << "Llave: "; cin >> key;
+            if (dict == 1) {
+                cout << (d1.contains(key) ? "true" : "false") << endl;
+            }
+            else {
+                cout << (d2.contains(key) ? "true" : "false") << endl;
+            }
+        }
+        else if (opcion == 6) {
+            if (dict == 1) d1.clear();
+            else d2.clear();
+            cout << "Diccionario limpiado" << endl;
+        }
+        else if (opcion == 7) {
+            List<int>* keys;
+            if (dict == 1) keys = d1.getKeys();
+            else keys = d2.getKeys();
+
+            cout << "[";
+            for (keys->goToStart(); !keys->atEnd(); keys->next()) {
+                cout << keys->getElement();
+                if (keys->getPos() < keys->getSize() - 1) cout << ", ";
+            }
+            cout << "]" << endl;
+            delete keys;
+        }
         
 }
